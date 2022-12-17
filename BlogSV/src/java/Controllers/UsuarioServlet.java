@@ -5,10 +5,12 @@
  */
 package Controllers;
 
+import Models.Entities.Publicacion;
 import Models.Entities.Usuario;
 import Moldels.DAO.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -53,6 +55,9 @@ public class UsuarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Publicacion entity = new Publicacion();
+        entity.setFecha(new Date("2022,12,11"));
+        
     }
 
     /**
@@ -67,6 +72,11 @@ public class UsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        
+        
+        
         
         String param = request.getParameter("registro");
         

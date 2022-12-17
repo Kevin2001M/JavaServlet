@@ -113,6 +113,7 @@
 
       <h2>Listado de categorias</h2>
       <div class="table-responsive">
+         <a href="<%=request.getContextPath()%>/dashboard?action=categorias-create" class="btn btn-primary btn-block">Nuevo</a>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -126,7 +127,10 @@
                 <tr>
                     <td><%=item.getCategoriaId()%></td>
                     <td><%=item.getNombre()%></td>                                     
-                    <td></td>
+                    <td>
+                        <a href="<%=request.getContextPath()%>/dashboard?action=categoria-edit&id=<%=item.getCategoriaId() %>">Editar</a>  
+                        <a href="<%=request.getContextPath()%>/dashboard?action=categorias-delete&id=<%=item.getCategoriaId() %>">Eliminar</a>  
+                    </td>
                 </tr>
                 <%}%>
                                      

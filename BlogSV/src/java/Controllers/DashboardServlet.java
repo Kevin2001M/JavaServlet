@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -78,6 +79,27 @@ public class DashboardServlet extends HttpServlet {
             
         }
         
+        if(action.contains("categoria-edit")){      
+            int id = Integer.parseInt(request.getParameter("id"));
+            CategoriaDAO dao = new CategoriaDAO();
+            
+            Categoria result = dao.getById(id);
+            request.setAttribute("categoria", result);            
+            request.getRequestDispatcher("/WEB-INF/views/categoria-edit.jsp").forward(request, response);                        
+            
+        }
+        
+        if(action.contains("categorias-delete")){      
+            int id = Integer.parseInt(request.getParameter("id"));
+            CategoriaDAO dao = new CategoriaDAO();
+            
+            dao.delete(id);
+            List<Categoria> result = dao.getAll();
+            request.setAttribute("categorias", result);    
+                       
+            request.getRequestDispatcher("/WEB-INF/views/categorias.jsp").forward(request, response);                                    
+        }
+        
         if(action.equals("publicaciones")){                
             request.getRequestDispatcher("/WEB-INF/views/publicaciones.jsp").forward(request, response);                        
             
@@ -111,6 +133,38 @@ public class DashboardServlet extends HttpServlet {
                 request.setAttribute("usuarios", result);
                 request.getRequestDispatcher("/WEB-INF/views/usuarios.jsp").forward(request, response);                                    
             }
+        }
+        
+        if(request.getParameter("nuevousuario") !=null){
+            UsuarioDAO dao = new UsuarioDAO();
+            Usuario entity = new Usuario();
+            entity.setNickName(request.getParameter("nickname"));
+            entity.setNombre(request.getParameter("nombre"));            
+            entity.setPwd(request.getParameter("pwd"));
+            
+            if(dao.create(entity)){                
+                List<Usuario> result = dao.getAll();
+                request.setAttribute("usuarios", result);
+                request.getRequestDispatcher("/WEB-INF/views/usuarios.jsp").forward(request, response);                                    
+            }
+        }
+                        
+        //editar categorias
+        if(request.getParameter("categoria-edit") !=null){
+            String nombre = request.getParameter("nombre");            
+            String categoriaid = request.getParameter("categoriaid");
+            
+            Categoria entity = new Categoria();
+            entity.setNombre(request.getParameter("nombre"));
+            entity.setCategoriaId(Integer.parseInt(request.getParameter("categoriaid")));            
+            
+                                               
+            CategoriaDAO dao = new CategoriaDAO();
+            if(dao.edit(entity)){                
+                List<Categoria> result = dao.getAll();
+                request.setAttribute("categorias", result);
+                request.getRequestDispatcher("/WEB-INF/views/categorias.jsp").forward(request, response);                                    
+            }                        
         }
         
     }

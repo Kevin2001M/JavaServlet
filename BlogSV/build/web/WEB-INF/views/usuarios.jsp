@@ -133,7 +133,10 @@
                     <% tipo= item.getTipoUsuario()==1?"Administrador": "Usuario";  %>
                         <% if (item.getTipoUsuario()==1)%>
                             <td><%=tipo%></td>                                                                
-                    <td></td>
+                    <td>
+                        <a href="<%=request.getContextPath()%>/dashboard?action=edit-usuarios?id=<%=item.getNickName() %>">Editar</a>  
+                        <a href="<%=request.getContextPath()%>/dashboard?action=delete-usuarios?id=<%=item.getNickName() %>">Eliminar</a>  
+                    </td>
                 </tr>
                 <%}%>
             
